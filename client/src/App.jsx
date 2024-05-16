@@ -12,14 +12,17 @@ function App() {
     const sendMessage = async (e) => {
         e.preventDefault();
         setChat((prevChat) => [...prevChat, { data: inputRef.current.value }]);
-        await socket.emit("message-socket", { data: inputRef.current.value , room: roomRef.current.value });
+        await socket.emit("message-socket", {
+            data: inputRef.current.value,
+            room: roomRef.current.value,
+        });
         inputRef.current.value = "";
     };
 
     const joinRoom = async (e) => {
-      e.preventDefault();
+        e.preventDefault();
 
-        await socket.emit("join-room",roomRef.current.value);
+        await socket.emit("join-room", roomRef.current.value);
     };
 
     useEffect(() => {
@@ -31,12 +34,20 @@ function App() {
     return (
         <div className="app">
             <form>
-              <input ref={roomRef} type="text" />
-              <button onClick={joinRoom}>Join Room</button>
+                <select required ref={roomRef} onChange={joinRoom} name="user" id="user">
+                    <option  value="">
+                        chose a user
+                    </option>
+
+                    <option value="adil">adil</option>
+                    <option value="amir">amir</option>
+                </select>
+                {/* <input ref={roomRef} type="text" /> */}
+                {/* <button onClick={joinRoom}>Join Room</button> */}
                 <input
                     ref={inputRef}
                     required
-                    type="text"
+                    type="adiltext"
                     name="message"
                     id="message"
                 />
